@@ -1,0 +1,78 @@
+{%extends 'base.html'%}
+
+{% block nav %}
+   
+<nav class="navbar">
+<a href="/home/{{user.id}}">Home</a>
+<a href="/user/{{ user.id }}"> My page</a>
+<a href="/logout">log out</a>
+<br>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome {{user.username}}! </h1>
+
+
+<form id="register" method="POST">
+    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
+
+    {% for msg in get_flashed_messages() %}
+      <p>{{ msg }}</p>
+    {% endfor %}
+
+    {% for field in form
+           if field.widget.input_type != 'hidden' %}
+  
+      <p>
+        {{ field.label }}
+        {{ field }}
+  
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      </p>
+  
+    {% endfor %}
+  
+    <button type="submit">Submit</button>
+  </form> 
+
+<div class="vids">
+    <ul class=vidsection> 
+    {%for vid in vids%}       
+   <li id="vid"  data-vidid ="{{vid.api_info.videoid}}">
+
+    {{ vid.title }}
+    </li>
+     {%endfor%}
+
+</ul>
+ </div> 
+    <ul class=postsection>
+    {%for p in post%}       
+
+       <div class="articles">  
+          <li id="{{p.id}}" {%if p.api_id%} data-title="{{p.api_info.title}}" data-url ="{{p.api_info.url}}" {%endif%}> 
+            
+            {%if p.title%}
+            {{p.api_info.title}}:
+            <br>
+            {{p.text[:-5]}} <a href="{{p.api_info.url}}"> see more </a>:
+            <br>
+           
+            {%endif%}
+
+            <br>
+          {%if p in user.posts %}
+            {{ p.text }} <form action="/post/{{p.id}}/delete" method="post"><button class="remove">delete</button> </form></div> 
+          {%endif%}
+    </li>
+     {%endfor%}
+</ul>
+
+
+
+
+{% endblock %}
