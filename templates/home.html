@@ -12,66 +12,76 @@
 
 {% block content %}
 
-<h1>Welcome {{user.username}}! </h1>
+<h1 data-user="{{user.id}}">Welcome {{user.username}}! </h1>
+ 
+  <div class="pagination"> 
+  <ul class=vidsection> 
+  
+  {%for vid in vids%}  
+
+  <div class="vids">
+    <li class="vid item"  data-vidid ="{{vid.api_info.videoid}}">
+      <h4>
+        <b>
+      {{ vid.title }}
+      </b>
+      </h4>
+    </li>
+   </div>  
+  {%endfor%}
 
 
-<form id="register" method="POST">
-    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
+</ul>
+ {{ vidpost_pagination.links }}"
+ </div>
 
-    {% for msg in get_flashed_messages() %}
-      <p>{{ msg }}</p>
-    {% endfor %}
 
-    {% for field in form
-           if field.widget.input_type != 'hidden' %}
-  
-      <p>
-        {{ field.label }}
-        {{ field }}
-  
-        {% for error in field.errors %}
-          {{ error }}
-        {% endfor %}
-      </p>
-  
-    {% endfor %}
-  
-    <button type="submit">Submit</button>
+
+
+<div container>
+<div class="userpost">
+<img  class="item"   {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} alt="Profile Picture" srcset="" >
+<form class="item " id="homeaddpost" method="POST" action="/home/{{user.id}}">
+   <input type="text" id="inputpost" name="text" >
+    <button  class="item" id="success" >Motivate</button>
   </form> 
+</div>
+</div>
 
-<div class="vids">
-    <ul class=vidsection> 
-    {%for vid in vids%}       
-   <li id="vid"  data-vidid ="{{vid.api_info.videoid}}">
 
-    {{ vid.title }}
-    </li>
-     {%endfor%}
 
-</ul>
- </div> 
+
+
+
+
+
+
+
+
     <ul class=postsection>
-    {%for p in post%}       
-
-       <div class="articles">  
-          <li id="{{p.id}}" {%if p.api_id%} data-title="{{p.api_info.title}}" data-url ="{{p.api_info.url}}" {%endif%}> 
-            
+    {%for p in textpost%}       
+       <div class="articles">
+          <li class = "article item"  data-id="{{p.id}}" {%if p.api_id%} data-title="{{p.api_info.title}}" data-url ="{{p.api_info.url}}" {%else%} data-user="{{p.user_id}}" {%endif%}> 
             {%if p.title%}
-            {{p.api_info.title}}:
-            <br>
-            {{p.text[:-5]}} <a href="{{p.api_info.url}}"> see more </a>:
-            <br>
+            <h4> <b>  {{p.api_info.title}}</b></h4>
+            {{p.text[:-12]}} <a href="{{p.api_info.url}}"> see more </a> 
+            {%else %}
+            <div class="post-content"> 
+           <img class = "img-container" src="{{ url_for('uploaded_file', filename=user.img)}}">
+              {{ p.text }} 
+              {% if p.user_id == user.id %}
+            <form action="/post/{{p.id}}/delete" method="post">
+              <button class="remove item"  id="danger" data-post="{{p.id}}">Delete</button> 
+            </form>
+            {% endif %}
            
-            {%endif%}
-
-            <br>
-          {%if p in user.posts %}
-            {{ p.text }} <form action="/post/{{p.id}}/delete" method="post"><button class="remove">delete</button> </form></div> 
-          {%endif%}
+          </div> 
+           {%endif%}
+          </div>
+          
     </li>
      {%endfor%}
 </ul>
-
 
 
 

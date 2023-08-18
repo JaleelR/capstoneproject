@@ -3,27 +3,27 @@
 <nav class="navbar">
     <a href="/">Home</a>
     <a href="/logout">log out</a>
+     <a href="/user/{{user.id}}/edit">  Edit profile </a>
     <br>
     </nav>
 {%endblock %}
 {%block content %}
-{{user.username}}
-{{user.name }}
+<h1> {{user.username}} </h1>
+<h3>{{user.name }} </h3>
 
 <div>
-<img src="{{ url_for('uploaded_file', filename=user.img) }}" alt="Profile Picture" srcset="">
+<img id="item1" class="userdetailpic" {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} alt="Profile Picture" srcset="" >
 </div>
+
 <ul>
 {% for  post in user.posts %}
 <li>
-  {{post. text}}  <a href="/post/{{post.id}}/edit"> edit</a>
+  {{post. text}}  <a href="/post/{{post.id}}/edit"> edit post</a>
 </li>
 
 {% endfor %}
 </ul>
-<form action ="/user/{{ user.id }}/delete" method = "POST">
-<button type="submit"> delete</button>
-</form>
+
 {%endblock %}
 
 

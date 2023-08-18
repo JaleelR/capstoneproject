@@ -21,7 +21,7 @@ class EditUserForm(FlaskForm):
 
 
 class MakePostForm(FlaskForm):
-    text = TextAreaField("content", validators=[InputRequired()])
+    text = StringField("text", validators=[InputRequired()])
 
 
 class EditPostForm(FlaskForm):

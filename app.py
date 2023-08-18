@@ -1,14 +1,17 @@
-from flask import Flask, render_template,redirect, request, flash, session, g, url_for, send_from_directory
-from Forms import EditUserForm, RegisterForm,  EditPostForm, LoginForm, MakePostForm
+from flask import Flask, render_template,redirect, flash, session, g, send_from_directory, jsonify, request,  url_for, Blueprint, render_template_string
+from Forms import EditUserForm, RegisterForm,  EditPostForm, LoginForm
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Like, Post, Api, Comment
-from api import convert_apidb_to_postdb, fetchapidata
+from models import db, connect_db, User, Like, Post, Comment
 from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 import os
 from flask_bcrypt import Bcrypt
+import random
+from flask_paginate import Pagination, get_page_parameter
 
+
+mod = Blueprint('users', __name__)
 bcrypt = Bcrypt()
 
 
@@ -32,9 +35,6 @@ ctx.push()
 
 
 
-# db.drop_all()
-# db.create_all()
-
 @app.before_request 
 def beforerequest():
     '''checks if user is logged in. If so make g.user the user.id if not put none'''
@@ -43,7 +43,6 @@ def beforerequest():
     else:
         g.user = None
         
-
 
 
 
@@ -60,8 +59,10 @@ def loginuser(user):
 
 
 routesnotneededforlogin = ["/register","/login" ]
-fetchapidata()
-convert_apidb_to_postdb()
+
+
+
+
 
 
 
@@ -140,7 +141,7 @@ def logout():
 
 @app.route("/home/<int:user_id>", methods = ["POST", "GET"])
 def home(user_id): 
-    fetchapidata()
+   
    
     """ 
     - displays main page of site
@@ -149,22 +150,52 @@ def home(user_id):
     
     """ 
     
-    print(f"______@@@@@@@@@@@@@@@__{fetchapidata()}")
+
     if not g.user:
         flash("please sign up first", "danger")
         return redirect("/register")
+
+
     try:     
         user = User.query.get_or_404(user_id)
-        vidpost = Post.query.filter(Post.youtuber != None).all()
-
-        form = MakePostForm()
-        if form.validate_on_submit(): 
-            post = Post(text = form.text.data, user_id = user.id)
-            user.posts.append(post)
-            db.session.commit() 
-            
+        all_vidposts = Post.query.filter(Post.youtuber != None).all()
+        vidpost = random.sample(all_vidposts, 5)
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        vidpost_pagination = Pagination(
+            page= page,
+            per_page = 5,
+            total=len(all_vidposts),
+            search=False,
+            record_name='vidposts')
         textpost = Post.query.filter(Post.youtuber == None).order_by(Post.timestamp.desc()).all()
-        return render_template("home.html", user = user, form = form, vids = vidpost, post = textpost)
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            data = request.get_json()
+            try:
+                post = Post(text=data["text"], user_id=data["user_id"])
+                db.session.add(post)
+                db.session.commit()
+                response_data = {
+                    "message": "Added post successfully", 
+                "id": post.id, "name": user.name,
+                "username": user.username, 
+                "img": url_for('uploaded_file', 
+                filename=user.img)
+                }
+                return jsonify(response_data), 201
+            except Exception as e:
+                db.session.rollback()
+                print("---------Error:", e)
+      
+        
+        
+           
+                return jsonify({"video_html": video_html, "has_more_videos": has_more_videos, "next_video_index": next_video_index}), 200
+            except Exception as e: 
+                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@error", e)
+            
+        
+        return render_template("home.html", user = user, vids = vidpost, textpost = textpost, vidpost_pagination = vidpost_pagination)
     except KeyError: 
         flash("please sign up first", "warning")
         return redirect('/register')
@@ -175,6 +206,9 @@ def home(user_id):
 @app.route("/")
 def redirectfirstpage():
 
+    headers = {
+        "Permissions-Policy": "geolocation=(self 'https://example.com')"
+    }
 
     """
     redirects user to home if signed in
@@ -217,21 +251,22 @@ def edituser(user_id):
         if true takes img from uploads
         """
 
-        if form.img.data:
+        try:
 
             """saves the file name upladed and saves file to img"""
 
             filename = secure_filename(form.img.data.filename)
             form.img.data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             img = filename
-        else:
+        except:
             img = ""
         user.username = form.username.data
         user.img = img
+    
         db.session.commit()
         return redirect(f"/user/{user.id}")
 
-    return render_template('users/edituser.html',form = form)
+    return render_template('users/edituser.html',form = form, user = user)
 
 
 
@@ -281,7 +316,7 @@ def deletepost(post_id):
     db.session.delete(post)
     db.session.commit()
     flash("Successfully deleted post","success")
-    return redirect(f"/home/{user.id}")
+    return jsonify({"message": "Post deleted successfully"}), 200
 
 
 

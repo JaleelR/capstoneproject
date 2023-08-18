@@ -22,7 +22,7 @@ def fetchapidata():
                 '''  Gets youtube api info by url and params essential for code '''
                 res = requests.get(yturl, params = {
                 "part": "snippet",
-                "maxResults" : 4, 
+                "maxResults" : 50, 
                 "videoEmbeddable": True, 
                 "q": "Self improvement",
                 "type": "video",
@@ -41,13 +41,13 @@ def fetchapidata():
 
                 ''' Gets youtube api info by url and params essential for code '''
 
-                res = requests.get(gnewsurl, params = { 
+                res2 = requests.get(gnewsurl, params = { 
                 "q": "Self improvement OR growth AND NOT stocks",
                 "apikey": gnewsapi,
                 "lang": "en"
                     }
                     )
-                data = res.json()
+                data = res2.json()
 
                 ''' for each article we recieved, the title, content, image and url
                 is extracted and saved to apis table'''
@@ -56,6 +56,29 @@ def fetchapidata():
                     api2 = Api(title = articles["title"],  content = articles["content"], img = ["Image"], url = articles["url"]) 
                     db.session.add(api2)    
                     db.session.commit()
+
+
+
+                res3 = requests.get(gnewsurl, params={
+                "q": "inspiration",
+                "apikey": gnewsapi,
+                "lang": "en"
+                }
+                )
+                data = res3.json()
+
+                ''' for each article we recieved, the title, content, image and url
+                is extracted and saved to apis table'''
+                for articles in data['articles']: 
+                    api3 = Api(title = articles["title"],  content = articles["content"], img = ["Image"], url = articles["url"]) 
+                    db.session.add(api3)    
+                    db.session.commit()
+
+
+
+
+
+
                 ''' If error getting, adding and/ or commiting, display error  '''
             except Exception as e:
                 print(f"An error has ocurred: {e}")
@@ -71,7 +94,9 @@ def convert_apidb_to_postdb():
      """
 
     if not Post.query.first():
-        apis= Api.query.all() 
+        apis= Api.query.all()
+        videoPosts = []
+
         for api in apis:
             if api.videoid:
                 vidposts = Post(title = api.title, text = api.videoid, youtuber = api.channeltitle,  api_id = api.id)
