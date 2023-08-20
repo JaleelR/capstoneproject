@@ -30,6 +30,12 @@ color: black;
 }
 
 
+input
+
+
+
+
+
 
 
 
@@ -51,11 +57,8 @@ color: black;
     
 }
 
-/* .success:hover::first-letter {
- 
-    color: rgb(237, 177, 0);
 
-} */
+
 
 #danger{
     background-color: rgb(168, 0, 0);
@@ -183,5 +186,49 @@ width: 100%;
 
 
 
+
+
+
+
+		
+
+	
+.pagination{
+    max-width: max-content;
+    overflow-x: scroll;
+    white-space: nowrap;
+}	
+
+
+.page-item {
+    font-size: 18px;
+    float: left;
+    padding: 8px 16px;   
+   list-style-type: none;
+    text-transform: none;
+     transition: 0.3s;
+}
+
+.page-link {
+    text-decoration: none; 
+    color: rgb(0, 0, 0);
+  
+}
+.page-link:hover{
+    text-decoration: none; 
+    color: rgb(255, 255, 255);
+  
+}
+
+
+.page-item:hover {
+    border-radius: 50%;
+      transform: rotate(360deg);
+	background-color: rgb(234, 96, 5);
+}
+
+		
+
+		
 
 

@@ -185,12 +185,8 @@ def home(user_id):
                 return jsonify(response_data), 201
             except Exception as e:
                 db.session.rollback()
-                print("---------Error:", e)
+                print("-------------Error:", e)
       
-        
-        
-           
-                return jsonify({"video_html": video_html, "has_more_videos": has_more_videos, "next_video_index": next_video_index}), 200
             except Exception as e: 
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@error", e)
             
