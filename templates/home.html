@@ -6,14 +6,18 @@
 <a href="/home/{{user.id}}">Home</a>
 <a href="/user/{{ user.id }}"> My page</a>
 <a href="/logout">log out</a>
+<h1 data-user="{{user.id}}">  {{user.username}} </h1>
 <br>
 </nav>
 {% endblock %}
 
 {% block content %}
 
-<h1 data-user="{{user.id}}"> Welcome {{user.username}}! </h1>
- 
+
+ {% for msg in get_flashed_messages() %}
+  <p><h2>{{ msg }}<h2></p>
+{% endfor %}
+</div>
   <div class="pagination"> 
   <ul class=vidsection> 
   
@@ -33,8 +37,10 @@
 
 
 
+<div id="flash-messages" class="flash-messages">
 
 
+ <div id="error-message" class="error-message"></div>
 <div class="userpost">
 
 <div class="user-info item">
@@ -81,19 +87,30 @@
 
             <div class="post-content"> 
 
-            <div class="user-info"> 
+            
+
+
+              {% if p.user_id == user.id %}
+              <div class="user-info"> 
            <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
               <b> {{p.user.username}}</b>
             </div>
               {{ p.text }}
-           
-              {% if p.user_id == user.id %}
             <form action="/post/{{p.id}}/delete" method="post">
               <button class="remove item"  id="danger" data-post="{{p.id}}">Delete</button> 
             </form>
-            {% endif %}
+          
            
-          </div> 
+
+            {% else %}
+            <div class="otheruser-info"> 
+           <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
+              <b> {{p.user.username}}</b>
+            </div>
+             <p class="otheruser-text"> {{ p.text }} </p>
+           
+          </div>   
+          {% endif %}
            {%endif%}
 
           </div>

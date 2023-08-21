@@ -1,37 +1,56 @@
+{%extends "base.html"%}
+{%block nav%}
+<nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/logout">log out</a>
+     <a href="/user/{{user.id}}/edit">  Edit profile </a>
+    <br>
+    </nav>
+{%endblock %}
+{%block content %}
+<h1> {{user.username}} </h1>
+<h3>{{user.name }} </h3>
 
-{% extends 'base.html' %}
-{% block content %}
-
-<div class="form">
-<form id="register" method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
-
-    {% for msg in get_flashed_messages() %}
-      <p>{{ msg }}</p>
-    {% endfor %}
-
-    {% for field in form
-           if field.widget.input_type != 'hidden' %}
-  
-
-           <div class="fields">
-      <p>
-      <p class="field-title"> <h3> <b> {{ field.label }} </b> </h3></p>
-        {{ field }}
-      </div>
-
-
-        {% for error in field.errors %}
-          {{ error }}
-        {% endfor %}
-      </p>
-  
-    {% endfor %}
-  <div class="submitcancel">
-    <button  id="register-login" type="submit">Submit</button>
-   
-  
-  </form> 
-
+<div>
+<img id="item1" class="userdetailpic" {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} alt="Profile Picture" srcset="" >
 </div>
- {%  endblock  %}
+
+
+<h1 class="myposts"> My posts </h1>
+
+  <ul class=postsection>
+     <div class="articles">
+ {% for p in user.posts %}
+          <li class = "article item"  data-id="{{p.id}}" {%if p.api_id%} data-title="{{p.api_info.title}}" data-url ="{{p.api_info.url}}" {%else%} data-user="{{p.user_id}}" {%endif%}> 
+            <div class="post-content"> 
+
+            <div class="user-info"> 
+           <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
+              <b> {{user.username}}</b>
+            </div>
+            
+              {{ p.text }}
+           
+            
+            <form action="/post/{{p.id}}/delete" method="post">
+              <button class="remove item"  id="danger" data-post="{{p.id}}">Delete</button> 
+              
+              <a href="/user/{{user.id}}/edit"> edit post</a>
+            </form>
+          
+           
+          </div> 
+       
+
+          </div>
+        </div>
+
+    </li>
+      {% endfor %}
+    
+</ul>
+
+
+{%endblock %}
+
+

@@ -19,7 +19,7 @@ bcrypt = Bcrypt()
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.path.abspath('uploads')
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'gif'}
-
+app.secret_key = 'your_secret_key'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///motivate"
 app.config['SECRET_KEY'] = 'Naruto7'
@@ -96,7 +96,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             loginuser(user)
-        
+            flash("Welcome to Motvate!", "success")
             return redirect(f"/home/{user.id}")
     except IntegrityError as e:
         flash("Username already taken, Please choose another", "error")
@@ -116,12 +116,13 @@ def login():
         username = form.username.data
         password = form.password.data
         user = User.authenticate( username = username, password = password)
-       
+        
         if  user is None:
            flash("wrong username or password", "danger")
 
         else:
             loginuser(user)
+            flash(f"Welcome back", "success")
             return redirect(f"/home/{user.id}")
     
     return render_template('login.html', form = form)
@@ -173,6 +174,7 @@ def home(user_id):
             data = request.get_json()
             try:
                 post = Post(text=data["text"], user_id=data["user_id"])
+                
                 db.session.add(post)
                 db.session.commit()
                 response_data = {
@@ -184,7 +186,9 @@ def home(user_id):
                 }
                 if response_data["img"] ==  "http://127.0.0.1:5000/uploads/": 
                     response_data["img"] = "https://img.freepik.com/free-icon/user_318-644325.jpg"
+               
                 return jsonify(response_data), 201
+                
             except Exception as e:
                 db.session.rollback()
                 print("---------Error:", e)
@@ -229,7 +233,7 @@ def userdetails(user_id):
         flash("please sign up first", "danger")
         return redirect("/register")
     user = User.query.get_or_404(user_id)
-    return render_template('users/userdeatails.html', user = user)
+    return render_template('/users/userdetails.html', user = user)
 
 
 
@@ -314,7 +318,7 @@ def deletepost(post_id):
     user = User.query.get_or_404(post.user.id)
     db.session.delete(post)
     db.session.commit()
-    flash("Successfully deleted post","success")
+ 
     return jsonify({"message": "Post deleted successfully"}), 200
 
 

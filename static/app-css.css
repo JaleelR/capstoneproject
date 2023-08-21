@@ -210,7 +210,10 @@ color: black;
 
 
 /* ////// user info /////// */
-
+h1 {
+    display: inline-block;
+     margin-left: 30%;
+}
 
 .userpost{
 margin-left: 2.5%;
@@ -280,6 +283,31 @@ margin: 4%;
 
 
 
+
+
+.backtouserdetails {
+    background-color: rgb(168, 0, 0);
+        color: rgb(255, 251, 251);
+        border-radius: 20rem;
+        padding: 0.8%;
+        border: 0ch;
+        box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+        text-align: center;
+    }
+
+
+.myposts{
+    position: relative;
+right: 20%;
+
+}
+
+
+
+#danger:hover {
+    background-color: rgb(129, 1, 1);
+    color: rgb(244, 240, 240);
+}
 
 
 
@@ -392,3 +420,14 @@ height: auto;
 		
 
 
+.otheruser-text {
+ position: relative;
+left: -47%;
+
+}
+
+#error-message{
+   
+			background-color: #FFBABA;
+			
+}

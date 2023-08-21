@@ -8,10 +8,15 @@ function addOnsubmit() {
         let textform = $("#inputpost");
         let userId = $("h1").data("user");
         let postText = textform.val();
+        if (postText.trim() === "") {
+            $("#error-message").text("Dude! motivate us. We can't get something from nothing!");
+            return;
+        }
         addPost(userId, postText);
         textform.val("")
     });
 }
+
 
 addOnsubmit();
 
@@ -36,11 +41,12 @@ function addPost(userId, postText) {
                 console.log(response);
                
                 
-                let post = `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">  <div class="user-info">  <img class ="img-container" src="${response.img}" > <b>${response.username}</b> </div> <bid=postname>${response.username}</bid=postname> ${document.createTextNode(postText).textContent}
+                let post = `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">  <div class="user-info">  <img class ="img-container" src="${response.img}" > <b>${response.username}</b> </div>  ${document.createTextNode(postText).textContent}
                  <form id="delete-form" action="/post/${response.id}/delete" method="post"><button class="remove"  id="danger" data-post="${response.id}">Delete</button> </form></div> 
                 </li></div></div>`;
                 $(".postsection").prepend(post);
-                
+                const flashMessagesDiv = document.getElementById("flash-messages");
+
                 $("#delete-form").on("submit", function(e) {
                     e.preventDefault();
                     const post = $(this).closest("li");
@@ -159,6 +165,11 @@ function addVideosFromServer() {
      }
 addVideosOnClick()
 
+
+ 
+
+
+   
 
 
 
