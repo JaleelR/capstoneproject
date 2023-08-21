@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<h1 data-user="{{user.id}}">Welcome {{user.username}}! </h1>
+<h1 data-user="{{user.id}}"> Welcome {{user.username}}! </h1>
  
   <div class="pagination"> 
   <ul class=vidsection> 
@@ -26,25 +26,33 @@
   </div>  
   {%endfor%}
 </ul>
-
-
-
-
 {{vidpost_pagination.links}}
  </div>
 
 
 
 
-<div container>
+
+
+
 <div class="userpost">
+
+<div class="user-info item">
 <img  class="item"   {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} alt="Profile Picture" srcset="" >
-<form class="item " id="homeaddpost" method="POST" action="/home/{{user.id}}">
-   <input type="text" id="inputpost" name="text" >
-    <button  class="item" id="success" >Motivate</button>
+<b>{{user.username}}</b>
+</div>
+
+<div class="inputsubmit">
+<form class="item item" id="homeaddpost" method="POST" action="/home/{{user.id}}">
+<input type="text" id="inputpost" name="text" >
+
   </form> 
+
+
+<button  class="item item" id="success" >Motivate</button>
 </div>
 </div>
+
 
 
 
@@ -59,14 +67,26 @@
     <ul class=postsection>
     {%for p in textpost%}       
        <div class="articles">
+
           <li class = "article item"  data-id="{{p.id}}" {%if p.api_id%} data-title="{{p.api_info.title}}" data-url ="{{p.api_info.url}}" {%else%} data-user="{{p.user_id}}" {%endif%}> 
             {%if p.title%}
-            <h4> <b>  {{p.api_info.title}}</b></h4>
+              <div class="apipost">
+              <img src= {{p.api_info.img}} ><h4><b>{{p.api_info.title}}</b></h4>
             {{p.text[:-12]}} <a href="{{p.api_info.url}}"> see more </a> 
+              </div>
             {%else %}
+            
+
+
+
             <div class="post-content"> 
-           <img class = "img-container" src="{{ url_for('uploaded_file', filename=user.img)}}">
-              {{ p.text }} 
+
+            <div class="user-info"> 
+           <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
+              <b> {{p.user.username}}</b>
+            </div>
+              {{ p.text }}
+           
               {% if p.user_id == user.id %}
             <form action="/post/{{p.id}}/delete" method="post">
               <button class="remove item"  id="danger" data-post="{{p.id}}">Delete</button> 
@@ -75,6 +95,7 @@
            
           </div> 
            {%endif%}
+
           </div>
           
     </li>

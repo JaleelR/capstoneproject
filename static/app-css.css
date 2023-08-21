@@ -1,13 +1,67 @@
 
+/* //////////////register.html////////////// */
+
 body{
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
     background-color: rgb(238, 238, 238);
+    width:100%;
 }
 
-h1{ 
-    font: bold
+
+
+.form form {
+    position: relative;
+    left: 15%;
+ display: flex; 
+ flex-direction: column;
+
+
 }
+
+
+.form input:focus {
+  outline: none;
+}
+.form #name{
+border: none;
+background-color: rgb(238, 238, 238);
+    border-bottom: 1px solid #000000;
+    width: 50%;
+    
+}
+.form #username{
+border: none;
+background-color: rgb(238, 238, 238);
+    border-bottom: 1px solid #000000;
+    width: 50%;
+    
+}
+.form #password{
+border: none;
+background-color: rgb(238, 238, 238);
+    border-bottom: 1px solid #000000;
+    width: 50%;
+    
+}
+
+
+
+
+
+
+
+
+/* //////////////home.html//////////////// */
+
+
+
+
+
+
+
+/* ///////// navbar /////////// */
 .navbar {
 background-color: rgb(255, 255, 255);
 padding: 16px;
@@ -17,8 +71,7 @@ box-shadow: 0px 2px 4px rgba(165, 165, 165, 0.5);
 
 .navbar a:hover{
     color: white;
-
-
+    
   background-color: rgb(221, 88, 0);
 }
 
@@ -30,14 +83,28 @@ color: black;
 }
 
 
-input
 
 
 
 
 
+/*//////////// motivate and delete buttons ///////////////*/
 
+#register-login{
+     background-color: rgb(220, 90, 3);
+    color: rgb(255, 251, 251);
+    border-radius: 20rem;
+    padding: 0.8%;
+    border: 0ch;
+    box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+    text-align: center;  
+}
 
+#register-login:hover{
+     background-color: rgb(176, 70, 0);
+    color: rgb(244, 240, 240);
+  
+}
 
 #success{
     background-color: rgb(220, 90, 3);
@@ -48,13 +115,14 @@ input
     box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
     text-align: center;
      
+    
 }
 
 
 #success:hover{
      background-color: rgb(176, 70, 0);
     color: rgb(244, 240, 240);
-    
+  
 }
 
 
@@ -81,7 +149,6 @@ input
     
      width: 3.5rem;
      height: 2rem;
-    
    text-align: center;
      
 }
@@ -89,28 +156,41 @@ input
 
 
 
-.vidsection{
 
+/* ////// vid seciton /////// */
+
+
+.vidsection{
     display: flex;
+   
     
     }
     
+
     .vids {
-width: auto;
-      
+    width: 50%;
+    -moz-text-size-adjust: auto;
+     align-content: space-between;
+     
+      margin: 40px
     }
     
     .vid {
+    
     display: flex; 
-
+    align-items: center;
     flex-direction: column;
     align-items: column;
-    align-content: space-between
     
+    align-content: space-between;
+    padding: 10px;
+  box-shadow: 4px 4px 4px 4px rgba(11, 11, 11, 0.5);;
     }
     
      iframe{
-    width: 12rem;
+    width: 20rem;
+    height: 15rem;
+    align-content: center;
     }
 
 
@@ -119,25 +199,91 @@ width: auto;
     max-width: max-content;
     overflow-x: scroll;
     white-space: nowrap;
-
+    
 }
+
+
+
+
+
+
+
+
+/* ////// user info /////// */
 
 
 .userpost{
-
+margin-left: 2.5%;
     display: flex;
-    flex-direction: row;
+   flex-direction: row;
     box-shadow: 4px 2px 4px rgba(11, 11, 11, 0.5);
-
+ align-items: center;
 }
+
+.user-info{ 
+
+   display: flex;
+   flex-direction: column-reverse;
+   text-align: center;
+}
+
+
+
 .userpost img{
  height: 4rem;
 }
 
+.userpost .button{
+     height: 2px;
+    
+}
+
+
+.userpost input{
+
+width: 400%;
+padding: 10px;
+margin: 10px 0;
+border: rgb(200, 84, 6) 1px solid;
+border-radius: 50px;
+justify-content: center;
+margin: 4%;
+}
+
+
+.inputsubmit{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+.inputsubmit input {
+ flex: 1;
+  padding-right: 4%;
+}
+
+
+.inputsubmit button {
+
+        
+    
+    background-color: #f1f1f1;
+    position: relative;
+    border: none;
+   left: 235%;
+    cursor: pointer;
+}
 
 
 
 
+
+
+
+
+
+/* ///////article posts ////// */
 .articles{
 width: 100%;    
 }
@@ -147,8 +293,19 @@ width: 100%;
     display: flex;
     flex-direction: column;
     box-shadow: 4px 2px 4px rgba(11, 11, 11, 0.5);
-
+    margin-bottom: 5%;
 }
+
+
+
+
+.apipost img{
+width: 50%;
+height: auto;
+}
+
+
+
 .post-content {
     display: flex;
     justify-content: space-between;
@@ -168,6 +325,8 @@ width: 100%;
  width: 30%;
 
 }
+
+
 
 #finishedit{
      background-color: rgb(220, 90, 3);
@@ -192,7 +351,7 @@ width: 100%;
 
 		
 
-	
+/* /////// page links ////// */
 .pagination{
     max-width: max-content;
     overflow-x: scroll;
@@ -211,7 +370,7 @@ width: 100%;
 
 .page-link {
     text-decoration: none; 
-    color: rgb(0, 0, 0);
+    color: #ea6d1a;
   
 }
 .page-link:hover{
@@ -224,6 +383,7 @@ width: 100%;
 .page-item:hover {
     border-radius: 50%;
       transform: rotate(360deg);
+
 	background-color: rgb(234, 96, 5);
 }
 

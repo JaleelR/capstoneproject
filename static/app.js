@@ -1,3 +1,7 @@
+
+/////////////Adds post functions/////////////
+
+
 function addOnsubmit() {
     $("#success").on("click", function (e) {
         e.preventDefault();
@@ -30,8 +34,9 @@ function addPost(userId, postText) {
 
                 console.log(postText, userId)
                 console.log(response);
-                let img = response.img
-                let post = `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">   <img class = "img-container" src="${img}"><bid=postname>${response.username}</bid=postname> ${document.createTextNode(postText).textContent}
+               
+                
+                let post = `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">  <div class="user-info">  <img class ="img-container" src="${response.img}" > <b>${response.username}</b> </div> <bid=postname>${response.username}</bid=postname> ${document.createTextNode(postText).textContent}
                  <form id="delete-form" action="/post/${response.id}/delete" method="post"><button class="remove"  id="danger" data-post="${response.id}">Delete</button> </form></div> 
                 </li></div></div>`;
                 $(".postsection").prepend(post);
@@ -55,7 +60,7 @@ function addPost(userId, postText) {
 
 
 
-
+/////////////Delete post functions/////////////
 function deletePostsOnSubmit() {
     $(".remove").on("click", function (e) {
         e.preventDefault();
@@ -100,6 +105,7 @@ function addVideosOnClick() {
 
 
 
+/////////////functions to show youtube videos/////////////
 
 function embeddedYoutubePosts() {
     try {
@@ -128,7 +134,7 @@ embeddedYoutubePosts();
 
 
 
-
+/////////////Adding videos to server/////////////
 function addVideosFromServer() {
     let pageCount = 1;
     $.ajax({

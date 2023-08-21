@@ -53,7 +53,8 @@ def fetchapidata():
                 is extracted and saved to apis table'''
 
                 for articles in data['articles']: 
-                    api2 = Api(title = articles["title"],  content = articles["content"], img = ["Image"], url = articles["url"]) 
+                    api2 = Api(title=articles["title"], content=articles["content"],
+                               img=articles["image"], url=articles["url"], name=articles['source']['name'])
                     db.session.add(api2)    
                     db.session.commit()
 
@@ -70,7 +71,7 @@ def fetchapidata():
                 ''' for each article we recieved, the title, content, image and url
                 is extracted and saved to apis table'''
                 for articles in data['articles']: 
-                    api3 = Api(title = articles["title"],  content = articles["content"], img = ["Image"], url = articles["url"]) 
+                    api3 = Api(title=articles["title"],  content=articles["content"], img=articles["image"], url=articles["url"], name=articles['source']['name'])
                     db.session.add(api3)    
                     db.session.commit()
 

@@ -1,29 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<form id="login"  method="POST">
+
+<div class="form">
+<form id="register" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }} <!--add type=hidden form fields -->
 
     {% for msg in get_flashed_messages() %}
       <p>{{ msg }}</p>
     {% endfor %}
-    
+
     {% for field in form
            if field.widget.input_type != 'hidden' %}
   
+
+           <div class="fields">
       <p>
-        {{ field.label }}
+      <p class="field-title"> <h3> <b> {{ field.label }} </b> </h3></p>
         {{ field }}
-  
+      </div>
+
+
         {% for error in field.errors %}
           {{ error }}
         {% endfor %}
       </p>
   
     {% endfor %}
-  
-    <button id="login">Login</button>
+  <div class="submitcancel">
+    <button  id="register-login" type="submit">Submit</button>
    
   
   </form> 
-  <button id="logincancel">Cancel</button>
-  {%endblock%}
+
+</div>
+ {%  endblock  %}

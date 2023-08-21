@@ -83,7 +83,7 @@ class Api(db.Model):
     url = db.Column(db.Text)
     channeltitle = db.Column(db.Text, nullable = True)
     videoid = db.Column(db.Text, nullable = True)
-    
+    name = db.Column(db.Text, nullable = True)
 
 
 

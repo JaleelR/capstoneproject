@@ -180,13 +180,16 @@ def home(user_id):
                 "id": post.id, "name": user.name,
                 "username": user.username, 
                 "img": url_for('uploaded_file', 
-                filename=user.img)
+                filename=user.img, _external = True)
                 }
+                if response_data["img"] ==  "http://127.0.0.1:5000/uploads/": 
+                    response_data["img"] = "https://img.freepik.com/free-icon/user_318-644325.jpg"
                 return jsonify(response_data), 201
             except Exception as e:
                 db.session.rollback()
-                print("-------------Error:", e)
+                print("---------Error:", e)
       
+
             except Exception as e: 
                 print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@error", e)
             
@@ -226,7 +229,7 @@ def userdetails(user_id):
         flash("please sign up first", "danger")
         return redirect("/register")
     user = User.query.get_or_404(user_id)
-    return render_template('users/userdetails.html', user = user)
+    return render_template('users/userdeatails.html', user = user)
 
 
 

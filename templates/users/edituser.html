@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<div class="form">
 <form id="register" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }} <!--add type=hidden form fields -->
 
@@ -12,25 +12,25 @@
     {% for field in form
            if field.widget.input_type != 'hidden' %}
   
+
+           <div class="fields">
       <p>
-       <h3> {{ field.label }} <h3>
+      <p class="field-title"> <h3> <b> {{ field.label }} </b> </h3></p>
         {{ field }}
-  
+      </div>
+
+
         {% for error in field.errors %}
           {{ error }}
         {% endfor %}
       </p>
   
     {% endfor %}
-  
-    <button  id="finishedit" type="submit">Finish edit</button>
+  <div class="submitcancel">
+    <button  id="register-login" type="submit">Submit</button>
    
-  <br>
-
+  
   </form> 
-  <button id="danger" href="user/{{user.id}}/details">Cancel</button>
-<form action ="/user/{{ user.id }}/delete" method = "POST">
-<button id="danger" type="submit"> delete</button>
-</form>
 
+</div>
  {%  endblock  %}

@@ -5,9 +5,9 @@ from flask_wtf.file import FileField, FileAllowed
 
 
 class RegisterForm(FlaskForm):
-    name = StringField("name", validators=[InputRequired()])
-    username = StringField("username", validators=[InputRequired()])
-    password = PasswordField("password", validators=[InputRequired(), (Length(min=8))])
+    name = StringField("Name", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired(), (Length(min=8))])
     img = FileField("Profile picture", validators= [FileAllowed(["jpg", "jpeg", "png", "gif"])])
 
 class LoginForm(FlaskForm):
@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
 
 
 class EditUserForm(FlaskForm):
-    username = StringField("username", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
     img = FileField("Profile Picture", validators= [FileAllowed(["jpg", "jpeg", "png", "gif"])])
 
 
