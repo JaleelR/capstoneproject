@@ -22,6 +22,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'gif'}
 app.secret_key = 'your_secret_key'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///motivate"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://ktjujtky:1pcIA6cecBDY8LmZ8mpkfjN8lMjgbAQf@mahmud.db.elephantsql.com/ktjujtky"
 app.config['SECRET_KEY'] = 'Naruto7'
 debug = DebugToolbarExtension(app)
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
@@ -124,7 +125,7 @@ def login():
             loginuser(user)
             flash(f"Welcome back", "success")
             return redirect(f"/home/{user.id}")
-    
+ 
     return render_template('login.html', form = form)
 
 
@@ -174,7 +175,7 @@ def home(user_id):
             data = request.get_json()
             try:
                 post = Post(text=data["text"], user_id=data["user_id"])
-                
+
                 db.session.add(post)
                 db.session.commit()
                 response_data = {
@@ -324,5 +325,31 @@ def deletepost(post_id):
 
 
 
+@app.route("/users/<int:post_id>/likepost", methods=["POST"])
+def likeposts(post_id):
+    user = User.query.get_or_404(g.user)
+    post = Post.query.get_or_404(post_id)
+    exsisting_like = Like.query.filter_by(user_id = post.user_id, post_id =post.id).first()
+    if exsisting_like:
+        db.session.delete(exsisting_like)
+        db.session.commit()
+        return f"successfully deleted from likes"
+
+    else:
+        new_like = Like(user_id=user.id, post_id=post.id)
+        db.session.add(new_like)
+        db.session.commit()
+        return f"successfully liked"
+
+
+
+
+@app.route("/users/<int:user_id>/likes")
+def userlikes(user_id):   
+    if not g.user:
+        flash("please sign up first", "danger")
+        return redirect("/register")
+    user = User.query.get_or_404(user_id)
+    return render_template("users/likes.html", user = user)
 
 

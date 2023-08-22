@@ -79,6 +79,14 @@
               <div class="apipost">
               <img src= {{p.api_info.img}} ><h4><b>{{p.api_info.title}}</b></h4>
             {{p.text[:-12]}} <a href="{{p.api_info.url}}"> see more </a> 
+  
+            <form action="/users/{{p.id}}/likepost" method="post">        
+             <button class="button button-like">
+            <i class="fa fa-heart"></i>
+            <span>Like</span>
+            </button>
+            </form> 
+            
               </div>
             {%else %}
             
@@ -91,30 +99,48 @@
 
 
               {% if p.user_id == user.id %}
+
               <div class="user-info"> 
            <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
               <b> {{p.user.username}}</b>
             </div>
               {{ p.text }}
+
+              <div class="user-buttons">
             <form action="/post/{{p.id}}/delete" method="post">
-              <button class="remove item"  id="danger" data-post="{{p.id}}">Delete</button> 
-            </form>
+              <button class="remove item"  id="danger" data-post="{{p.id}}"><a href="/post/{{p.id}}/delete"></a><i class="fa fa-trash" aria-hidden="true"></i>Delete</button> 
+</form>
+             
+                <form action="/users/{{p.id}}/likepost" method="post">
+              <button  method="post" class="button button-like"> <i class="fa fa-heart"></i><span>Like</span></button>
+              </form>
+            </div>
+             </div>
           
            
 
             {% else %}
+            
+
             <div class="otheruser-info"> 
            <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
               <b> {{p.user.username}}</b>
             </div>
-             <p class="otheruser-text"> {{ p.text }} </p>
+
            
-          </div>   
+            {{ p.text }}
+             <form action="/users/{{p.id}}/likepost" method="post">
+            <button class="button button-like">
+            <i class="fa fa-heart"></i>
+            <span>Like </span>
+            </button>
+         </form>
+
+          
+      
           {% endif %}
            {%endif%}
-
-          </div>
-          
+        
     </li>
      {%endfor%}
 </ul>

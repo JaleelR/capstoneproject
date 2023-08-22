@@ -39,11 +39,27 @@ function addPost(userId, postText) {
 
                 console.log(postText, userId)
                 console.log(response);
-               
-                
-                let post = `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">  <div class="user-info">  <img class ="img-container" src="${response.img}" > <b>${response.username}</b> </div>  ${document.createTextNode(postText).textContent}
-                 <form id="delete-form" action="/post/${response.id}/delete" method="post"><button class="remove"  id="danger" data-post="${response.id}">Delete</button> </form></div> 
-                </li></div></div>`;
+                let post =
+                    `<div class="articles"><li class="article item" id="${response.id}" data-id="${response.id}" data-user="${userId}"><div class="post-content">  <div class="user-info">  
+                <img class ="img-container" src="${response.img}" > 
+                <b>${response.username}</b> 
+                </div>
+                ${document.createTextNode(postText).textContent}
+                 <div class="user-buttons">
+                <form id="delete-form" action="/post/${response.id}/delete" method="post">
+                <button class="remove"  id="danger" data-post="${response.id}">Delete</button> 
+                 </form>
+                  <form action="/users/${response.id}/likepost" method="post">
+                 <button class="button button-like">
+                <i class="fa fa-heart"></i><span>Like</span>
+                </button>
+                </form>
+                </div> 
+                 </div>
+                </li>   
+                </div>
+             
+                </div>`;
                 $(".postsection").prepend(post);
                 const flashMessagesDiv = document.getElementById("flash-messages");
 
@@ -167,8 +183,25 @@ addVideosOnClick()
 
 
  
+// likes toggle ///// 
+
+function likebutton() {
+    $(".button-like").on("click", function (e) {
+
+        e.preventDefault();
+        $(this).toggleClass("button-inlikes");
+        if ($(this).hasClass("button-like")){
+            $(this).html("Like")
+        }
+        if ($(this).hasClass("button-inlikes")) {
+            $(this).html("Liked")
+        }
+        })
+        
+    }
 
 
+likebutton();
    
 
 

@@ -65,7 +65,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete = "CASCADE"), nullable = True)
     api_id = db.Column(db.Integer, db.ForeignKey('apis.id', ondelete = "CASCADE"), nullable = True)
     api_info = db.relationship("Api", backref="posts_info")
-    likes = db.relationship("Like", backref = 'posts')
+    likes = db.relationship("Like", backref='posts',
+                            cascade="all, delete-orphan", passive_deletes=True)
     comments = db.relationship("Comment", backref = 'posts')
     ''' Checks that either user_id or api_id will be used
     both cannot be filled or can they both be null'''
@@ -107,9 +108,9 @@ class Api(db.Model):
 
 class Like(db.Model):
     __tablename__ = 'likes'
-    
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete = "CASCADE"), primary_key = True, nullable = False)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete = "CASCADE"), primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete = "CASCADE"), nullable = False)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete = "CASCADE"), nullable = False)
 
 
 

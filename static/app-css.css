@@ -1,5 +1,5 @@
 
-/* //////////////register.html////////////// */
+/* //////////////register.html login.html and edituser.html////////////// */
 
 body{
     padding: 0;
@@ -56,12 +56,13 @@ background-color: rgb(238, 238, 238);
 /* //////////////home.html//////////////// */
 
 
-
-
-
-
-
 /* ///////// navbar /////////// */
+
+h1 {
+    display: inline-block;
+     margin-left: 30%;
+}
+
 .navbar {
 background-color: rgb(255, 255, 255);
 padding: 16px;
@@ -88,7 +89,9 @@ color: black;
 
 
 
-/*//////////// motivate and delete buttons ///////////////*/
+
+
+/*////////////  buttons ///////////////*/
 
 #register-login{
      background-color: rgb(220, 90, 3);
@@ -101,7 +104,7 @@ color: black;
 }
 
 #register-login:hover{
-     background-color: rgb(176, 70, 0);
+     background-color:  rgb(220, 90, 3);
     color: rgb(244, 240, 240);
   
 }
@@ -120,7 +123,7 @@ color: black;
 
 
 #success:hover{
-     background-color: rgb(176, 70, 0);
+     background-color: rgb(220, 90, 3);
     color: rgb(244, 240, 240);
   
 }
@@ -129,7 +132,35 @@ color: black;
 
 
 #danger{
-    background-color: rgb(168, 0, 0);
+     border: 2px solid #8a8a8a;
+  background-color: transparent;
+  text-decoration: none;
+  padding: .2rem;
+   position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: .8rem;
+  color: #8a8a8a;
+  font-size: .8rem;
+  transition: all ease 0.4s;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+#danger:hover{
+     background-color: rgb(176, 2, 2);
+    color: rgb(244, 240, 240);
+    border-color: rgb(176, 2, 2);
+}
+
+ 
+
+
+#finishedit{
+     background-color: rgb(220, 90, 3);
     color: rgb(255, 251, 251);
     border-radius: 20rem;
     padding: 0.8%;
@@ -138,12 +169,11 @@ color: black;
     text-align: center;
 }
 
-#danger:hover{
-     background-color: rgb(129, 1, 1);
-    color: rgb(244, 240, 240);
+#finishedit:hover{
+     background-color:  rgb(220, 90, 3);
+ color: rgb(223, 220, 220);
 }
 
- 
 
  .article #danger{
     
@@ -152,6 +182,129 @@ color: black;
    text-align: center;
      
 }
+
+.backtouserdetails {
+    background-color: rgb(168, 0, 0);
+        color: rgb(255, 251, 251);
+        border-radius: 20rem;
+        padding: 0.8%;
+        border: 0ch;
+        box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+        text-align: center;
+    }
+
+
+
+.button-like {
+
+  border: 2px solid #8a8a8a;
+  background-color: transparent;
+  text-decoration: none;
+  padding: .2rem;
+   position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 1rem;
+  color: #8a8a8a;
+  font-size: .8rem;
+  transition: all ease 0.4s;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.button a{
+    text-decoration: none;
+    color: #8a8a8a;
+}
+.button-like span {
+  margin-left: 0.5rem;
+
+}
+
+.button-like .fa,
+.button-like span {
+  transition: all ease 0.4s;
+}
+
+.button-like:focus {
+  background-color: transparent;
+}
+
+.button-like:focus .fa,
+.button-like:focus span {
+  color: #8a8a8a;
+}
+
+.button-like:hover {
+  border-color:  rgb(220, 90, 3);
+  background-color: transparent;
+  
+  
+}
+
+.button-like:hover .fa,
+.button-like:hover span {
+  color: rgb(220, 90, 3);
+}
+
+.liked {
+  background-color:  rgb(220, 90, 3);
+  border-color: rgb(220, 90, 3);
+}
+
+.liked .fa,
+.liked span {
+  color: #fefefe;
+}
+
+.liked:focus {
+  background-color:  rgb(220, 90, 3);
+}
+
+.liked:focus .fa,
+.liked:focus span {
+  color: #fefefe;
+}
+
+.liked:hover {
+  background-color:  rgb(220, 90, 3);
+  border-color:  rgb(220, 90, 3);
+}
+
+.liked:hover .fa,
+.liked:hover span {
+  color: #fefefe;
+}
+
+
+.button-inlikes{
+ 
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  padding: .2rem;
+   position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 1rem;
+  color: rgb(220, 90, 3);
+  font-size: .8rem;
+  transition: all ease 0.4s;
+ 
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.fala {
+    color: rgb(220, 90, 3);
+}
+
+
 
 
 
@@ -209,11 +362,11 @@ color: black;
 
 
 
-/* ////// user info /////// */
-h1 {
-    display: inline-block;
-     margin-left: 30%;
-}
+
+
+
+/* ////// user input form info /////// */
+
 
 .userpost{
 margin-left: 2.5%;
@@ -247,7 +400,7 @@ margin-left: 2.5%;
 width: 400%;
 padding: 10px;
 margin: 10px 0;
-border: rgb(200, 84, 6) 1px solid;
+border:  rgb(220, 90, 3) 1px solid;
 border-radius: 50px;
 justify-content: center;
 margin: 4%;
@@ -285,31 +438,37 @@ margin: 4%;
 
 
 
-.backtouserdetails {
-    background-color: rgb(168, 0, 0);
-        color: rgb(255, 251, 251);
-        border-radius: 20rem;
-        padding: 0.8%;
-        border: 0ch;
-        box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
-        text-align: center;
-    }
 
 
 .myposts{
     position: relative;
 right: 20%;
-
 }
 
 
 
-#danger:hover {
-    background-color: rgb(129, 1, 1);
-    color: rgb(244, 240, 240);
+
+
+.otheruser-info{
+ display: flex;
+   flex-direction: column-reverse;
+   text-align: center;
+}
+
+.otheruser-text {
+  display: flex;
+   flex-direction: row;
+   text-align: center;
 }
 
 
+
+.user-buttons{
+   display: flex;
+   flex-direction: column-reverse;
+  text-align: center;
+
+}
 
 /* ///////article posts ////// */
 .articles{
@@ -322,9 +481,8 @@ width: 100%;
     flex-direction: column;
     box-shadow: 4px 2px 4px rgba(11, 11, 11, 0.5);
     margin-bottom: 5%;
+    padding-right: 10%;
 }
-
-
 
 
 .apipost img{
@@ -334,10 +492,15 @@ height: auto;
 
 
 
+
+
+/* //////// users content /////// */
+
 .post-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
  .img-container{
@@ -356,20 +519,7 @@ height: auto;
 
 
 
-#finishedit{
-     background-color: rgb(220, 90, 3);
-    color: rgb(255, 251, 251);
-    border-radius: 20rem;
-    padding: 0.8%;
-    border: 0ch;
-    box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
-    text-align: center;
-}
 
-#finishedit:hover{
-     background-color: rgb(167, 81, 0);
- color: rgb(223, 220, 220);
-}
 
 
 
@@ -398,7 +548,7 @@ height: auto;
 
 .page-link {
     text-decoration: none; 
-    color: #ea6d1a;
+    color:  rgb(220, 90, 3);
   
 }
 .page-link:hover{
@@ -412,7 +562,7 @@ height: auto;
     border-radius: 50%;
       transform: rotate(360deg);
 
-	background-color: rgb(234, 96, 5);
+	background-color:  rgb(220, 90, 3);
 }
 
 		
@@ -420,14 +570,61 @@ height: auto;
 		
 
 
-.otheruser-text {
- position: relative;
-left: -47%;
 
-}
 
+
+
+/* flash messages */
 #error-message{
    
-			background-color: #FFBABA;
+	background-color: #FFBABA;
 			
 }
+
+
+
+.edit{
+ border: 2px solid #8a8a8a;
+  background-color: transparent;
+  text-decoration: none;
+  padding: .2rem;
+   position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 1rem;
+  color: #8a8a8a;
+  font-size: .8rem;
+  transition: all ease 0.4s;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+ 
+}
+
+.edit a{
+    color: #8a8a8a;
+    text-decoration: none;
+}
+.edit:hover{
+  border-color:  rgb(3, 126, 220);
+background-color: rgb(3, 126, 220);
+
+  
+}
+.edit a:hover{
+     color: #f1f1f1; 
+}
+
+
+
+
+
+
+.current-user-posts h1{
+    position: relative;
+    
+    right: 30%;
+}
+
