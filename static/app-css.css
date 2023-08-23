@@ -1,13 +1,71 @@
 
 /* //////////////register.html login.html and edituser.html////////////// */
 
+:root {
+  --light: #fcfcfc;
+  --motivateorange:  rgb(220, 90, 3);
+  --null: #8a8a8a;
+  --dark: rgb(31, 31, 32);
+  --darkshadow: rgb(59, 59, 59);
+  --lightshadow: rgb(99, 99, 99);
+}
+
+.light {
+    --bg: var(--light);
+    --text: var(--dark);
+   --shadow: var(--lightshadow);
+}
+
+.dark{
+--bg: var(--dark);
+--text: var(--light);
+--shadow: var(--darkshadow);
+}
+
+
 body{
     padding: 0;
     margin: 0;
     overflow-x: hidden;
-    background-color: rgb(238, 238, 238);
+    
     width:100%;
+    color: var(--text);
+background-color: var(--bg);
 }
+
+
+/* ///////// navbar /////////// */
+
+h1 {
+    display: inline-block;
+     margin-left: 30%;
+}
+
+.navbar {
+background-color: var(--bg);
+color: var(--text);
+padding: 16px;
+box-shadow: 0px 2px 4px var(--shadow);
+}
+
+
+.navbar a:hover{
+    color: white;
+    
+  background-color: rgb(220, 90, 3);
+}
+
+.navbar a {
+font: bold;
+ padding: 16px;
+text-decoration: none;
+color: var(--text)
+}
+
+
+
+
+
 
 
 
@@ -26,22 +84,24 @@ body{
 }
 .form #name{
 border: none;
-background-color: rgb(238, 238, 238);
-    border-bottom: 1px solid #000000;
+background-color: var(--bg);
+    border-bottom: 1px solid var(--text);
     width: 50%;
     
 }
 .form #username{
 border: none;
-background-color: rgb(238, 238, 238);
-    border-bottom: 1px solid #000000;
+color: var(--text);
+background-color: var(--bg);
+    border-bottom: 1px solid var(--text);
     width: 50%;
     
 }
 .form #password{
 border: none;
-background-color: rgb(238, 238, 238);
-    border-bottom: 1px solid #000000;
+color: var(--text);
+background-color: var(--bg);
+    border-bottom: 1px solid var(--text);
     width: 50%;
     
 }
@@ -56,35 +116,15 @@ background-color: rgb(238, 238, 238);
 /* //////////////home.html//////////////// */
 
 
-/* ///////// navbar /////////// */
-
-h1 {
-    display: inline-block;
-     margin-left: 30%;
-}
-
-.navbar {
-background-color: rgb(255, 255, 255);
-padding: 16px;
-box-shadow: 0px 2px 4px rgba(165, 165, 165, 0.5);
-}
 
 
-.navbar a:hover{
-    color: white;
+#text {
+ border: none;
+
+
     
-  background-color: rgb(221, 88, 0);
+    width: 50%; 
 }
-
-.navbar a {
-font: bold;
- padding: 16px;
-text-decoration: none;
-color: black;
-}
-
-
-
 
 
 
@@ -99,7 +139,7 @@ color: black;
     border-radius: 20rem;
     padding: 0.8%;
     border: 0ch;
-    box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+    box-shadow: 2px 3px 4px 2px var(--shadow);
     text-align: center;  
 }
 
@@ -115,7 +155,7 @@ color: black;
     border-radius: 20rem;
     padding: 0.8%;
     border: 0ch;
-    box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+    box-shadow: 2px 3px 4px 2px var(--shadow);
     text-align: center;
      
     
@@ -189,7 +229,7 @@ color: black;
         border-radius: 20rem;
         padding: 0.8%;
         border: 0ch;
-        box-shadow: 2px 3px 4px 2px rgb(84, 84, 84);
+        box-shadow: 2px 3px 4px 2px var(--shadow);
         text-align: center;
     }
 
@@ -431,7 +471,10 @@ margin: 4%;
     cursor: pointer;
 }
 
-
+#inputpost{
+  background-color: var(--bg);
+  color: var(--text);
+}
 
 
 
@@ -628,3 +671,73 @@ background-color: rgb(3, 126, 220);
     right: 30%;
 }
 
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #000000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #0c0c0c;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+#profilename{
+    display: inline-block;
+    margin-left: 30%;
+  
+}

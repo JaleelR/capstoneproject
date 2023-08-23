@@ -1,0 +1,82 @@
+{%extends "base.html"%}
+{%block nav%}
+<nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/logout">log out</a>
+    
+    <br>
+    </nav>
+{%endblock %}
+{%block content %}
+
+
+
+    <ul class=postsection>
+        {%for p in likes %} 
+        
+   
+       <div class="articles">
+
+          <li class = "article item"  data-id="{{p.posts.id}}" {%if p.posts.api_id%} data-title="{{p.posts.api_info.title}}" data-url ="{{p.posts.api_info.url}}" {%else%} data-user="{{p.posts.user_id}}" {%endif%}> 
+            {%if p.posts.title%}
+              <div class="apipost">
+              <img src= {{p.posts.api_info.img}} ><h4><b>{{p.posts.api_info.title}}</b></h4>
+            {{p.posts.text[:-12]}} <a href="{{p.posts.api_info.url}}"> see more </a> 
+  
+            <form action="/users/{{p.posts.id}}/likepost" method="post">        
+             <button class="button button-like" data-postid="{{p.posts.id}}">
+            <i class="fa fa-heart"></i>
+            <span>Like</span>
+            </button>
+            </form> 
+            
+              </div>
+         
+                {%else%}
+            
+             <div class="post-content"> 
+              {% if p.user_id == user.id %}
+              <div class="user-info"> 
+           <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
+              <b> {{p.users.username}}</b>
+            </div>
+              {{ p.posts.text }}
+              <div class="user-buttons">
+            <form action="/post/{{p.id}}/delete" method="post">
+              <button class="remove item"  id="danger" data-post="{{p.id}}"><a href="/post/{{p.id}}/delete"></a><i class="fa fa-trash" aria-hidden="true"></i>Delete</button> 
+</form>
+                <form action="/users/{{p.id}}/likepost" method="post">
+              <button  method="post" data-postid="{{p.id}}" class="button button-like"> <i class="fa fa-heart"></i><span>Like</span></button>
+              </form>
+            </div>
+             </div>
+
+
+              {% else %}
+            
+
+            <div class="otheruser-info"> 
+           <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
+              <b> {{p.user.username}}</b>
+            </div>
+
+           
+            {{ p.posts.text }}
+             <form action="/users/{{p.posts.id}}/likepost" method="post">
+            <button data-postid="{{p.posts.id}}" class="button button-like">
+            <i class="fa fa-heart"></i>
+            <span>Like </span>
+            </button>
+         </form>
+
+           {%endif%}
+        
+    </li>
+    {%endif%}
+     {%endfor%}
+ 
+     
+</ul>
+{%endblock%}
+
+

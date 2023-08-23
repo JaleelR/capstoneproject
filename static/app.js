@@ -1,5 +1,23 @@
 
-/////////////Adds post functions/////////////
+////// dark and light mode ///////
+
+const lightButton = $(".light")
+const darkButton = $(".dark")
+const body = $("body")
+
+let currentTheme = localStorage.getItem("currentTheme");
+body.addClass(currentTheme);
+
+$(".themes").on("click", function () {
+    body.toggleClass("light dark")
+    currentTheme = body.hasClass("light") ? "light" : "dark";
+    localStorage.setItem("currentTheme", currentTheme);
+});
+
+
+
+
+////////////Adds post functions/////////////
 
 
 function addOnsubmit() {
@@ -119,7 +137,7 @@ let userId = $("h1").data("user")
 function addVideosOnClick() { 
     $(".see-more-vids").on("click", function (e) {
         e.preventDefault();
-        addVideosFromServer()
+        addVideosFromServer();
        
     })
 }
@@ -185,24 +203,35 @@ addVideosOnClick()
  
 // likes toggle ///// 
 
+
+
+
+
+
+   
 function likebutton() {
     $(".button-like").on("click", function (e) {
-
         e.preventDefault();
-        $(this).toggleClass("button-inlikes");
-        if ($(this).hasClass("button-like")){
-            $(this).html("Like")
-        }
-        if ($(this).hasClass("button-inlikes")) {
-            $(this).html("Liked")
-        }
-        })
-        
-    }
+        var button = $(this);
 
+        $.ajax({
+            type: "POST",
+            url: `/users/${button.data("postid")}/likepost`,
 
+            success: function () {
+                button.toggleClass("button-like button-inlikes");
+                if (button.hasClass("button-like")) {
+                    button.html("Like again");
+                }
+                if (button.hasClass("button-inlikes")) {
+                    button.html("Liked");
+                }
+               
+            }
+        });
+    });
+}
 likebutton();
-   
 
 
 

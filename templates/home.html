@@ -2,16 +2,31 @@
 
 {% block nav %}
    
+
+
+
 <nav class="navbar">
 <a href="/home/{{user.id}}">Home</a>
 <a href="/user/{{ user.id }}"> My page</a>
 <a href="/logout">log out</a>
 <h1 data-user="{{user.id}}">  {{user.username}} </h1>
+
+
 <br>
+
+
 </nav>
+
+
+<label class="switch">
+  <input class="themes" type="checkbox">
+  <span class="slider round"></span>
+</label>
+{% block content %}
+
+
 {% endblock %}
 
-{% block content %}
 
 
  {% for msg in get_flashed_messages() %}
@@ -81,7 +96,7 @@
             {{p.text[:-12]}} <a href="{{p.api_info.url}}"> see more </a> 
   
             <form action="/users/{{p.id}}/likepost" method="post">        
-             <button class="button button-like">
+             <button class="button button-like" data-postid="{{p.id}}">
             <i class="fa fa-heart"></i>
             <span>Like</span>
             </button>
@@ -94,25 +109,18 @@
 
 
             <div class="post-content"> 
-
-            
-
-
               {% if p.user_id == user.id %}
-
               <div class="user-info"> 
            <img class = "img-container"  {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} >
               <b> {{p.user.username}}</b>
             </div>
               {{ p.text }}
-
               <div class="user-buttons">
             <form action="/post/{{p.id}}/delete" method="post">
               <button class="remove item"  id="danger" data-post="{{p.id}}"><a href="/post/{{p.id}}/delete"></a><i class="fa fa-trash" aria-hidden="true"></i>Delete</button> 
 </form>
-             
                 <form action="/users/{{p.id}}/likepost" method="post">
-              <button  method="post" class="button button-like"> <i class="fa fa-heart"></i><span>Like</span></button>
+              <button  method="post" data-postid="{{p.id}}" class="button button-like"> <i class="fa fa-heart"></i><span>Like</span></button>
               </form>
             </div>
              </div>
@@ -130,7 +138,7 @@
            
             {{ p.text }}
              <form action="/users/{{p.id}}/likepost" method="post">
-            <button class="button button-like">
+            <button data-postid="{{p.id}}" class="button button-like">
             <i class="fa fa-heart"></i>
             <span>Like </span>
             </button>

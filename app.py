@@ -339,17 +339,25 @@ def likeposts(post_id):
         new_like = Like(user_id=user.id, post_id=post.id)
         db.session.add(new_like)
         db.session.commit()
-        return f"successfully liked"
+        
+        return  (f"successfully liked")
 
 
 
 
-@app.route("/users/<int:user_id>/likes")
+@app.route("/user/<int:user_id>/likes")
 def userlikes(user_id):   
-    if not g.user:
-        flash("please sign up first", "danger")
-        return redirect("/register")
-    user = User.query.get_or_404(user_id)
-    return render_template("users/likes.html", user = user)
 
+        if not g.user:
+            flash("please sign up first", "danger")
+            return redirect("/register")
+        user = User.query.get_or_404(user_id)
+        mylikes = Like.query.filter(Like.user_id == user.id ).order_by(Like.id.desc()).all()
+        
+        return render_template("users/likes.html", user = user, likes = mylikes)
+
+    
+    
+    
+     
 

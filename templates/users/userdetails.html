@@ -3,19 +3,24 @@
 <nav class="navbar">
     <a href="/">Home</a>
     <a href="/logout">log out</a>
-     <a href="/user/{{user.id}}/edit">  Edit profile </a>
+      <a href="/user/{{user.id}}/edit">  Edit profile </a>
+  <a href="/user/{{user.id}}/likes"> {{user.username}} likes</a>
+
     <br>
     </nav>
 {%endblock %}
 {%block content %}
-<h1> {{user.username}} </h1>
-<h3>{{user.name }} </h3>
+<divid="profilename">
+<h1 > {{user.username}} </h1>
+<div>
+<h2>{{user.name }} </h2>
 
 <div>
 <img id="item1" class="userdetailpic" {%if user.img%} src="{{ url_for('uploaded_file', filename=user.img)}}" {% else %} src="https://img.freepik.com/free-icon/user_318-644325.jpg" {%endif%} alt="Profile Picture" srcset="" >
 </div>
 
 <div class ="current-user-posts">
+
 <h1 class="posts"> My posts </h1>
   <ul class=postsection>
      <div class="articles">
@@ -34,7 +39,7 @@
             <form action="/post/{{p.id}}/delete" method="post">
               <button class="remove item"  id="danger" data-post="{{p.id}}"><i class="fa fa-trash" aria-hidden="true"></i>Delete</button> 
             </form>
-           <button class="edit"> <a href="/user/{{p.id}}/edit"> <i class="fas fa-edit"></i> <span>edit post</span>   </a> </button>
+           <button class="edit"> <a href="/post/{{p.id}}/edit"> <i class="fas fa-edit"></i> <span>edit post</span>   </a> </button>
            </div>
           </div> 
        
