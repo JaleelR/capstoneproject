@@ -21,7 +21,7 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath('uploads')
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png', 'gif'}
 app.secret_key = 'your_secret_key'
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://ktjujtky:1pcIA6cecBDY8LmZ8mpkfjN8lMjgbAQf@mahmud.db.elephantsql.com/ktjujtky"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://ktjujtky:1pcIA6cecBDY8LmZ8mpkfjN8lMjgbAQf@mahmud.db.elephantsql.com/ktjujtky"
 app.config['SECRET_KEY'] = 'Naruto7'
 debug = DebugToolbarExtension(app)
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
